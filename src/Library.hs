@@ -79,3 +79,22 @@ tieneMuchaSal unComponente = (> 2).cantidad $ unComponente
 noAptoHipertension :: Plato -> Bool
 noAptoHipertension unPlato = any tieneMuchaSal.componentes $ unPlato
 
+-- Parte B
+componenteSal :: Componente
+componenteSal = UnComponente "sal" 15
+componenteAzucar :: Componente
+componenteAzucar = UnComponente "azucar" 10
+componenteCarne :: Componente
+componenteCarne = UnComponente "carne" 2
+componenteHarina :: Componente
+componenteHarina = UnComponente "harina" 3
+componenteLeche :: Componente
+componenteLeche = UnComponente "leche" 6
+componenteQueso :: Componente
+componenteQueso = UnComponente "queso" 6
+
+platoDePepeRonccino :: Plato
+platoDePepeRonccino = UnPlato 10 [componenteSal, componenteAzucar, componenteCarne, componenteHarina, componenteLeche, componenteLeche]
+
+pepeRonccino :: Participante
+pepeRonccino = UnParticipante "Pepe Ronccino" [darSabor 5 2, simplificar, duplicarPorcion] platoDePepeRonccino

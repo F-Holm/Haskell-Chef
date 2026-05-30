@@ -98,3 +98,31 @@ platoDePepeRonccino = UnPlato 10 [componenteSal, componenteAzucar, componenteCar
 
 pepeRonccino :: Participante
 pepeRonccino = UnParticipante "Pepe Ronccino" [darSabor 5 2, simplificar, duplicarPorcion] platoDePepeRonccino
+
+-- Parte C
+aplicarTrucoDeCocina :: Plato -> (TrucoDeCocina) -> Plato
+aplicarTrucoDeCocina unPlato unTruco = unTruco unPlato
+
+cocinar :: Participante -> Plato
+cocinar unParticipante = foldl (aplicarTrucoDeCocina) (especialidad unParticipante).trucosDeCocina $ unParticipante
+
+esMasDificil :: Plato -> Plato -> Bool
+esMasDificil unPlato otroPlato = (> dificultad otroPlato).dificultad $ unPlato
+
+peso :: Plato -> Number
+peso unPlato = sum.map cantidad.componentes $ unPlato
+
+esMasLiviano :: Plato -> Plato -> Bool
+esMasLiviano unPlato otroPlato = (< peso otroPlato).peso $ unPlato
+
+esMejorQue :: Plato -> Plato -> Bool
+esMejorQue unPlato otroPlato = esMasDificil unPlato otroPlato && esMasLiviano unPlato otroPlato
+
+mejorParticipante :: Participante -> Participante -> Participante
+mejorParticipante unParticipante otroParticipante
+  | esMejorQue (cocinar unParticipante).cocinar $ otroParticipante = unParticipante
+  | otherwise = otroParticipante
+
+participanteEstrella :: [Participante] -> Participante
+participanteEstrella [unParticipante] = unParticipante
+participanteEstrella (unParticipante : otroParticipante : participantesRestantes) = participanteEstrella ((mejorParticipante unParticipante otroParticipante) : participantesRestantes)

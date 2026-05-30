@@ -73,8 +73,14 @@ esVegano unPlato = not.tieneComponentes (["carne", "huevos"] ++ lacteos) $ unPla
 esSinTacc :: Plato -> Bool
 esSinTacc unPlato = not.tieneComponente unPlato $ "harina"
 
+esSal :: Componente -> Bool
+esSal unComponente = (== "sal").ingrediente $ unComponente
+
+tieneMucha :: Componente -> Bool
+tieneMucha unComponente = (> 2).cantidad $ unComponente
+
 tieneMuchaSal :: Componente -> Bool
-tieneMuchaSal unComponente = (> 2).cantidad $ unComponente
+tieneMuchaSal unComponente = (&& tieneMucha unComponente).esSal $ unComponente
 
 noAptoHipertension :: Plato -> Bool
 noAptoHipertension unPlato = any tieneMuchaSal.componentes $ unPlato

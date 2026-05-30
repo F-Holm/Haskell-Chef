@@ -126,3 +126,16 @@ mejorParticipante unParticipante otroParticipante
 participanteEstrella :: [Participante] -> Participante
 participanteEstrella [unParticipante] = unParticipante
 participanteEstrella (unParticipante : otroParticipante : participantesRestantes) = participanteEstrella ((mejorParticipante unParticipante otroParticipante) : participantesRestantes)
+
+-- Parte D
+nombreIngredientePlatinum :: Number -> String
+nombreIngredientePlatinum n = "Ingrediente " ++ show n
+
+crearComponentePlatinum :: Number -> Componente
+crearComponentePlatinum n = UnComponente (nombreIngredientePlatinum n) n
+
+componentesPlatinum :: [Componente]
+componentesPlatinum = map crearComponentePlatinum [1..]
+
+platinum :: Plato
+platinum = UnPlato 10 componentesPlatinum
